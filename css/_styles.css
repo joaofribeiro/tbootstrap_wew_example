@@ -5268,7 +5268,7 @@ a.badge:focus {
  *     Playing with Whateverweb's EXTENDED 
  * media queries :)
  */
-@media (-wew-has-cellular-radio) {
+@media (-wew-has-cellular-radio: true) {
   .cta {
     display: block;
     margin-bottom: 1em;
