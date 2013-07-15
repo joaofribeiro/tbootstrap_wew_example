@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+		<meta charset="UTF-8" >
+		<title>Home</title>
+		<meta name="viewport" content="width:device-width, initial-scale=1" >
+		
+		<style>
+			#currentVpw
+			{
+				background-color:#0077B3;
+				color:#fff;
+				padding:0.5em;
+			}
+			.exampleHeader
+			{
+				background-color:#49AFCD;
+				color:#fff;
+				padding:0.5em;
+			}
+		</style>
+		
+		<script src="js/picturefill.js" type="text/javascript" ></script>
+		
+	<!--[if lt IE 9]>
+<script src="dist/html5shiv.js"></script>
+<![endif]-->
+
+
+	<script type="text/javascript">   
+
+
+	/**
+	 * Cookie auxiliar functions
+	 * These are inline in the HTML on purpose. 
+	 * The goal is to reduce the number of initial HTTP Requests by inlining JS code 
+	 */
+	function getCookie( name ) {	
+
+	var start = document.cookie.indexOf( name + "=" );
+
+	var len = start + name.length + 1;
+
+	if ( ( !start ) && ( name != document.cookie.substring( 0, name.length ) ) ) {
+
+		return null;
+
+	}
+
+	if ( start == -1 ) return null;
+
+	var end = document.cookie.indexOf( ';', len );
+
+	if ( end == -1 ) end = document.cookie.length;
+
+	return unescape( document.cookie.substring( len, end ) );
+
+}
+	function setCookie( name, value, expires, path, domain, secure ) {
+
+	var today = new Date();
+
+	today.setTime( today.getTime() );
+
+	if ( expires ) {
+
+		expires = expires * 1000 * 60 * 60 * 24;
+
+	}
+
+	var expires_date = new Date( today.getTime() + (expires) );
+
+	document.cookie = name+'='+value +
+
+		( ( expires ) ? ';expires='+expires_date.toGMTString() : '' ) + //expires.toGMTString()
+
+		( ( path ) ? ';path=' + path : '' ) + 
+
+		( ( domain ) ? ';domain=' + domain : '' ) +
+
+		( ( secure ) ? ';secure' : '' );
+
+}
+	function deleteCookie( name, path, domain ) {
+
+	if ( getCookie( name ) ) document.cookie = name + '=' +
+
+			( ( path ) ? ';path=' + path : '') +
+
+			( ( domain ) ? ';domain=' + domain : '' ) +
+
+			';expires=Thu, 01-Jan-1970 00:00:01 GMT';
+
+}
+	
+	
+	/**
+	 * Calculates the current viewport width and returns it
+	 * @param w the document window object
+	 * @param d the document object
+	 * @return the current viewport width in pixels
+	 */
+	function calc_vpw(w, d) { 
+		//Viewport width is vpw variable
+		var vpw = w.innerWidth || e.clientWidth || g.clientWidth
+		return vpw;		
+    };
+    
+    //Initialize WeW 
+    var WeW=WeW || {};
+	
+    
+    /*
+     * Sets the RESS cookie that WeW uses to check for viewport width
+     * and resize images accordingly
+     * @param vpw The Viewport width
+     * @return void
+     */
+    WeW.setCookie=function (vpw){
+    	
+    	//'RESS=vpw.' + vpw + '|bp.' + bp + '|dpr.' + dpr + '
+    	
+    	setCookie("RESS","vpw."+vpw+'|bp.n'+'|dpr.1');
+    	console.log('cookie has been set with vpw '+vpw);
+    };
+	
+	
+   	
+	//Update cookie for each resize
+	window.onresize =function(e){
+		
+		var vpw=calc_vpw(window,document);
+		WeW.setCookie(vpw);
+		var vpwDiv=document.getElementById('vpw');
+		vpwDiv.innerHTML=vpw;
+	
+	};
+	
+	window.onload = function()
+	{
+		//Calculate vpw and set initial cookie value
+		var vpw=calc_vpw(window,document);
+		var vpwDiv=document.getElementById('currentVpw');
+		vpwDiv.innerHTML='<p>BODY HAS LOADED</p><p>THE CURRENT VIEWPORT WIDTH IS: '+vpw+'</p>';
+		WeW.setCookie(vpw);
+	}
+	currentVpw
+	
+ 	</script>
+		
+	</head>
+
+	<body >
+	<article>
+		<div id="currentVpw">
+			
+		</div>
+		
+		<!-- I should be able to mix different techniques! The proxy should work use the following precedence rules for scaling:
+			- If there are url parameters use those
+			- If there are no url parameters but a viewport width is set through RESS cookie (can we change cookie name?) use that
+			- If there are no url parameters, and no viewport is set on cookie, try to figure best size through SSide detection, which
+			is what will always happen for the first call! (instead of sending the smaller image version by default)! --> 
+		
+		
+	
+		<!--Example 1:  prefixing img elements with WeW image optimizer URL 
+			
+				Advantages: no use of special/non-standard markup - use standard image elements; 
+			                just requires simple source replace that can be done using rewrites before response from webserver/framework;
+			
+				Disadvantages: Not the best for art direction (different screen sizes may require specific/different images)   
+			              	   Can create cache issues with CDNs (?)         
+			  -->		  
+
+			<!-- Scale according url defined -->
+			<div>
+				<div>
+					<p class="exampleHeader">EXAMPLE 1: 50 pixel image as defined in img source</p>
+				</div>	
+				<img src="http://img.demo.wew.io/px_50/http://wfiles.brothersoft.com/p/penguin_couple-1600x1200.jpg" >
+			</div>
+			
+			<!-- Scale to cookie defined viewport size -->
+			<div>
+				<div>
+					<p class="exampleHeader">EXAMPLE 2: Get image according to vpw value of cookie
+						<br>
+						Cookie: <script>document.write(getCookie('RESS'));</script>
+					</p>
+					
+				</div>
+			</div>
+			
+			<img src="http://img.demo.wew.io/http://wfiles.brothersoft.com/p/penguin_couple-1600x1200.jpg" >
+			
+			
+			<!-- Scale to 10% of cookie viewport according to breakpoint n (hardcoded for testing purposes) -->
+			<div>
+					<p class="exampleHeader">EXAMPLE 3: Get 10% of cookie viewport value, as defined by breakpoint n
+						<br>
+						Cookie: <script>document.write(getCookie('RESS'));</script>
+					</p>	
+				</div>
+			<img src="http://img.demo.wew.io/bp_n/pc/w_10/m_10/n_10/http://wfiles.brothersoft.com/p/penguin_couple-1600x1200.jpg" >
+		
+			
+			<tr>
+		
+		<!-- Example 2: Using picturefill and WeW
+		
+			Advantages: Good for art direction, allows to show different images per media query (remember hidden images still result in downloads) 
+		                
+			Disadvantages: Requires profound code changes (much more than simple adding of url prefix)   
+		              	            
+		  -->
+		  <div>
+		  	<p class="exampleHeader">EXAMPLE 4: Get images according to what is defined in PictureFill</p>
+			<span data-picture data-alt="These are the penguins">
+			<span data-src="http://img.demo.wew.io/px_200/http://wfiles.brothersoft.com/p/penguin_couple-1600x1200.jpg"></span>
+			<span data-src="http://img.demo.wew.io/px_800/http://wfiles.brothersoft.com/p/penguin_couple-1600x1200.jpg" data-media="(min-width: 400px)"></span>
+			<span data-src="http://img.demo.wew.io/px_1000/http://wfiles.brothersoft.com/p/penguin_couple-1600x1200.jpg" data-media="(min-width: 800px)"></span>
+			<span data-src="http://img.demo.wew.io/px_1000/http://wfiles.brothersoft.com/p/penguin_couple-1600x1200.jpg" data-media="(min-width: 1000px)"></span>
+			
+			<!-- Fallback content for non-JS browsers. Same img src as the initial, unqualified source element. -->
+			<noscript><img src="http://img.demo.wew.io/http://wfiles.brothersoft.com/p/penguin_couple-1600x1200.jpg"></noscript>
+			</span>
+		</div>
+		
+	</article>
+	</body>
+</html>
