@@ -21,6 +21,7 @@
 			}
 		</style>
 		
+		<script src="js/wew.js" type="text/javascript" ></script>
 		<script src="js/picturefill.js" type="text/javascript" ></script>
 		
 	<!--[if lt IE 9]>
@@ -103,7 +104,7 @@
 	 */
 	function calc_vpw(w, d) { 
 		//Viewport width is vpw variable
-		var vpw = w.innerWidth || e.clientWidth || g.clientWidth
+		var vpw = w.innerWidth || e.clientWidth || g.clientWidth;
 		return vpw;		
     };
     
@@ -144,8 +145,31 @@
 		var vpwDiv=document.getElementById('currentVpw');
 		vpwDiv.innerHTML='<p>Window has finished loading</p><p>THE CURRENT VIEWPORT WIDTH IS: '+vpw+'</p>';
 		WeW.setCookie(vpw);
-	}
-	currentVpw
+	};
+	
+	/* init */
+	
+	var orientation = window.orientation || "";
+var height = screen.height || "";
+var width = calc_vpw(window,document);
+var pixelratio = window.devicePixelRatio || "";
+	
+
+	
+	var WEW = WEW || {};
+	console.log('passing width of'+width+' to wew');
+	WEW.opts ={"ttl":"1000","appID":"demo"};
+	WEW.opts.appID='playbootstrap';
+	var w=new wew(WEW);
+
+	w.getCap("is_joao_ribeiro_jay",function(c){
+		//alert(c.max_image_width);
+	});
+
+	
+	
+	
+
 	
  	</script>
 		
@@ -172,7 +196,16 @@
 			
 				Disadvantages: Not the best for art direction (different screen sizes may require specific/different images)   
 			              	   Can create cache issues with CDNs (?)         
-			  -->		  
+			  -->
+			  
+			 <!-- Scale image according to detected Device Capabilities -->
+			<div>
+				<div>
+					<p class="exampleHeader">EXAMPLE 2: Scale image according to detected Device Capabilities
+					</p>
+					<img src="http://img.demo.wew.io/http://wfiles.brothersoft.com/p/penguin_couple-1600x1200.jpg" >
+				</div>
+			</div>		  
 
 			<!-- Scale according url defined -->
 			<div>
@@ -203,7 +236,7 @@
 						Cookie: <script>document.write(getCookie('RESS'));</script>
 					</p>	
 				</div>
-			<img src="http://img.demo.wew.io/bp_n/pc/w_10/m_10/n_10/http://wfiles.brothersoft.com/p/penguin_couple-1600x1200.jpg" >
+			<img src="http://img.demo.wew.io/vpw_800/bp_n/pc/w_10/m_10/n_10/http://wfiles.brothersoft.com/p/penguin_couple-1600x1200.jpg" >
 		
 			
 			<tr>
