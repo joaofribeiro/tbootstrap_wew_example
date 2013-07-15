@@ -132,8 +132,8 @@
 		
 		var vpw=calc_vpw(window,document);
 		WeW.setCookie(vpw);
-		var vpwDiv=document.getElementById('vpw');
-		vpwDiv.innerHTML=vpw;
+		var vpwDiv=document.getElementById('currentVpw');
+		vpwDiv.innerHTML='<p>THE CURRENT VIEWPORT WIDTH IS: '+vpw+'</p>';
 	
 	};
 	
@@ -142,7 +142,7 @@
 		//Calculate vpw and set initial cookie value
 		var vpw=calc_vpw(window,document);
 		var vpwDiv=document.getElementById('currentVpw');
-		vpwDiv.innerHTML='<p>BODY HAS LOADED</p><p>THE CURRENT VIEWPORT WIDTH IS: '+vpw+'</p>';
+		vpwDiv.innerHTML='<p>Window has finished loading</p><p>THE CURRENT VIEWPORT WIDTH IS: '+vpw+'</p>';
 		WeW.setCookie(vpw);
 	}
 	currentVpw
