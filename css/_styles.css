@@ -5268,9 +5268,19 @@ a.badge:focus {
  *     Playing with Whateverweb's EXTENDED 
  * media queries :)
  */
-@media (-wew-has-cellular-radio: true) {
-  .cta {
+/**
+* WeW extended media queries
+*/
+/*Look for touch capability and enhance*/
+@media (-wew-pointing-method: touchscreen) {
+  .button {
     display: block;
     margin-bottom: 1em;
+  }
+}
+/*Look for brand name and enhance */
+@media (-wew-brand-name: samsung) {
+  .ads .samsung {
+    display: block;
   }
 }
