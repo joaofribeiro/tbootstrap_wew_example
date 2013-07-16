@@ -162,8 +162,30 @@ var pixelratio = window.devicePixelRatio || "";
 	WEW.opts.appID='playbootstrap';
 	var w=new wew(WEW);
 
+	/**
+	 * Custom capability that's just returning the 
+	 * wew.resolution_width_value that is accessbile on admin interface
+	 * through the clientFeatures paramter
+	 * 
+	 * is_joao_ribeiro_jay (script custom capability)
+	 * function (capas, clientFeatures) {
+ 	   if(typeof clientFeatures !== 'undefined') {
+    	    return clientFeatures.wew_resolution_width;
+    	}}
+	 */
 	w.getCap("is_joao_ribeiro_jay",function(c){
-		//alert(c.max_image_width);
+		
+	});
+	
+	
+	/**
+	 * Getting the model name does not let me knwo which iphone 
+	 * I am targetting
+	 * Actually the example of mixing client feature detection+
+	 * server side shows that server side alone cant tell me much...
+	 */
+	w.getCap("model_name",function(c){
+		
 	});
 
 	

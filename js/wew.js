@@ -51,7 +51,7 @@ wew.prototype.getSet = function(setName, callback) {'use strict';
 	var height = screen.height || "";
 	var width = screen.width || "";
 	var pixelratio = window.devicePixelRatio || "";
-	url = url + "?o=" + orientation + "&h=" + height + "&w=" + width + "&p=" + pixelratio + "&jribeiro=" + 'jay';
+	url = url + "?o=" + orientation + "&h=" + height + "&w=" + width + "&p=" + pixelratio;
 	console.log(url);
 	http.open('GET', url, true);
 	http.onreadystatechange = function() {

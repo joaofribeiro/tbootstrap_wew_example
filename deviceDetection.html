@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+		<meta charset="UTF-8" >
+		<title>Home</title>
+		<meta name="viewport" content="width:device-width, initial-scale=1" >
+		
+		<style>
+			#currentVpw
+			{
+				background-color:#0077B3;
+				color:#fff;
+				padding:0.5em;
+			}
+			.exampleHeader
+			{
+				background-color:#49AFCD;
+				color:#fff;
+				padding:0.5em;
+			}
+		</style>
+		
+		<script src="js/wew.js" type="text/javascript" ></script>
+
+	<!--[if lt IE 9]>
+<script src="dist/html5shiv.js"></script>
+<![endif]-->
+
+
+	<script type="text/javascript">   
+
+
+	
+	/**
+	 * Calculates the current viewport width and returns it
+	 * @param w the document window object
+	 * @param d the document object
+	 * @return the current viewport width in pixels
+	 */
+	function calc_vpw(w, d) { 
+		//Viewport width is vpw variable
+		var vpw = w.innerWidth || e.clientWidth || g.clientWidth;
+		return vpw;		
+    };
+    
+    //Initialize WeW 
+    var WeW=WeW || {};
+	
+   
+	
+	
+   	
+	
+	window.onresize =function(e){
+		
+		var vpw=calc_vpw(window,document);
+		var vpwDiv=document.getElementById('currentVpw');
+		vpwDiv.innerHTML='<p>THE CURRENT VIEWPORT WIDTH IS: '+vpw+'</p>';
+	
+	};
+	
+	window.onload = function()
+	{
+		//Calculate vpw 
+		var vpw=calc_vpw(window,document);
+		var vpwDiv=document.getElementById('currentVpw');
+		vpwDiv.innerHTML='<p>Window has finished loading</p><p>THE CURRENT VIEWPORT WIDTH IS: '+vpw+'</p>';
+	
+	};
+	
+	/* init */
+	
+	var orientation = window.orientation || "";
+var height = screen.height || "";
+var width = calc_vpw(window,document);
+var pixelratio = window.devicePixelRatio || "";
+	
+
+	
+	var WEW = WEW || {};
+	console.log('passing width of'+width+' to wew');
+	WEW.opts ={"ttl":"1000","appID":"demo"};
+	WEW.opts.appID='playbootstrap';
+	var w=new wew(WEW);
+
+	/**
+	 * Custom capability that's just returning the 
+	 * wew.resolution_width_value that is accessbile on admin interface
+	 * through the clientFeatures paramter
+	 * 
+	 * is_joao_ribeiro_jay (script custom capability)
+	 * function (capas, clientFeatures) {
+ 	   if(typeof clientFeatures !== 'undefined') {
+    	    return clientFeatures.wew_resolution_width;
+    	}}
+	 */
+	w.getCap("is_joao_ribeiro_jay",function(c){
+		
+	});
+	
+	
+	
+	/**(
+	 * Getting the model name does not let me knwo which specific iphone 
+	 * I am targetting (?)If true, then the example of mixing client feature detection
+	 * and server side actually shows that server side alone cant tell me much...
+	 */
+	w.getCap("model_name",function(c){
+		alert('The model name is \n'+c.model_name);
+	});
+
+	
+	
+	
+
+	
+ 	</script>
+		
+	</head>
+
+	<body >
+	<article>
+		<div id="currentVpw">
+			
+		</div>
+		
+		
+	</article>
+	</body>
+</html>
